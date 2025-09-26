@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/zozole1818/winmm"
 	"log"
 	"os"
 	"os/signal"
@@ -25,7 +24,7 @@ func main() {
 	ctx, stop := signal.NotifyContext(ctx, os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	initPos, err := winmm.GetMousePosition()
+	initPos, err := GetMousePosition()
 	currentPos := initPos
 	if err != nil {
 		log.Fatalf("cannot get mouse position: %v", err)
@@ -45,18 +44,18 @@ func main() {
 				pressWin = true
 				currentPos.X -= 200
 			}
-			err = winmm.MoveMouse(currentPos)
+			err = MoveMouse(currentPos)
 			if err != nil {
 				log.Fatalf("cannot move mouse position: %v", err)
 			}
 
 			if pressWin {
-				err = winmm.PressLeftWindows()
+				err = PressLeftWindows()
 				if err != nil {
 					log.Fatalf("cannot press left windows: %v", err)
 				}
 				<-time.After(500 * time.Millisecond)
-				err = winmm.PressLeftWindows()
+				err = PressLeftWindows()
 				if err != nil {
 					log.Fatalf("cannot press left windows: %v", err)
 				}

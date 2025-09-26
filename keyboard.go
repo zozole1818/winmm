@@ -1,4 +1,4 @@
-package winmm
+package main
 
 import (
 	"fmt"
