@@ -31,11 +31,13 @@ func main() {
 	}
 
 	tick := time.Tick(tickTime)
+	counter := 0
 	fmt.Printf(".")
 
 	for {
 		select {
 		case <-tick:
+			counter++
 			fmt.Printf(".")
 			var pressWin bool
 			if currentPos == initPos {
@@ -62,7 +64,7 @@ func main() {
 			}
 
 		case <-ctx.Done():
-			fmt.Println("done")
+			fmt.Printf(":%d:done\n", counter)
 			return
 		}
 	}
